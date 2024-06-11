@@ -36,6 +36,9 @@ Plug 'mfussenegger/nvim-lint'
 " support for formatters
 Plug 'stevearc/conform.nvim'
 
+" auto-install required packages from Mason
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
+
 " completion plugin based on lsp servers
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -251,6 +254,21 @@ require('lspconfig').gopls.setup({
             gofumpt = true
         }
     }
+})
+
+require('mason-tool-installer').setup({
+	ensure_installed = {
+		-- Go
+		'gopls',
+		'gofumpt',
+		'goimports',
+		'revive',
+		-- Lua
+		'lua-language-server',
+		'luaformatter',
+
+	},
+	auto_update = true,
 })
 
 -- autoclose plugin
