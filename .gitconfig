@@ -9,3 +9,5 @@
 [push]
 	default = current
 	autoSetupRemote = true
+[merge]
+	conflictStyle = zdiff3
