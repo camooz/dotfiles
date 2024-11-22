@@ -67,6 +67,10 @@ Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
 
 Plug 'romgrk/barbar.nvim'
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+Plug 'kdheepak/lazygit.nvim'
+
 call plug#end()
 
 colorscheme kanagawa
@@ -112,11 +116,16 @@ map("n", "<C-l>", "<C-w>l")
 -- keybindings for telescope
 local builtin = require('telescope.builtin')
 map('n', '<leader>ff', builtin.find_files)
+map('n', '<leader>fs', builtin.current_buffer_fuzzy_find)
 map('n', '<leader>fg', builtin.live_grep)
 map('n', '<leader>fb', builtin.buffers)
 map('n', '<leader>fh', builtin.help_tags)
+map('n', '<leader>ld', builtin.diagnostics)
 
-require('startup').setup({theme = "custom"})
+-- lazygit
+map('n', '<leader>gg', ':LazyGit<CR>')
+
+require('startup').setup({theme = "dashboard"})
 
 -- treesitter minimal config
 require'nvim-treesitter.configs'.setup {
@@ -139,7 +148,7 @@ local lspconfig = require('lspconfig')
 map('n', '<leader>vd', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<leader>ad', vim.diagnostic.setloclist)
+map('n', '<leader>ad', ':lua vim.diagnostic.setqflist()<CR>')
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
