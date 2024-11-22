@@ -245,10 +245,13 @@ require('lspconfig')['gopls'].setup {
 require('lspconfig')['lua_ls'].setup {
 	capabilities = capabilities
 }
-require('lspconfig')['tsserver'].setup {
+require('lspconfig')['ts_ls'].setup {
 	capabilities = capabilities
 }
 require('lspconfig')['pylsp'].setup {
+	capabilities = capabilities
+}
+require('lspconfig')['html'].setup {
 	capabilities = capabilities
 }
 require('lspconfig')['yamlls'].setup {
@@ -271,10 +274,14 @@ require('mason-tool-installer').setup({
 		'gopls',
 		'gofumpt',
 		'goimports',
-		'revive',
+		'golangci-lint',
 		-- Lua
 		'lua-language-server',
 		'luaformatter',
+		-- Python
+		'pylsp',
+		'flake8',
+		'black',
 
 	},
 	auto_update = true,
@@ -307,9 +314,18 @@ require("autoclose").setup({
 })
 
 require('lint').linters_by_ft = {
-	go = {'revive',},
-	python = {'flake8', 'mypy',},
+	go = {'golangcilint',},
+	python = {'flake8',},
 	typescript = {'eslint_d'},
+}
+
+local golint = require('lint').linters.golangcilint
+golint.args = {
+	'--timeout=10m', '--disable-all', '-E=misspell',
+        '-E=govet', '-E=revive', '-E=gofumpt', '-E=gosec', '-E=unparam',
+        '-E=goconst', '-E=prealloc', '-E=stylecheck', '-E=unconvert',
+        '-E=errcheck', '-E=ineffassign', '-E=unused', '-E=tparallel',
+        '-E=whitespace', '-E=staticcheck', '-E=gosimple', '-E=gocritic',
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -324,7 +340,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 require("conform").setup({
   formatters_by_ft = {
     lua = { "lua-format" },
-    python = { "black" },
+    python = { "black", "autoflake" },
     go = { "gofumpt", "goimports" },
     typescript = { "prettierd" },
   },
