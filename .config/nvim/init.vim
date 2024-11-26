@@ -277,12 +277,16 @@ require('mason-tool-installer').setup({
 		'golangci-lint',
 		-- Lua
 		'lua-language-server',
-		'luaformatter',
+		'luacheck',
+		'stylua',
 		-- Python
 		'pylsp',
 		'flake8',
 		'black',
-
+		-- Bash
+		'bashls',
+		'shellharden',
+		'shellcheck',
 	},
 	auto_update = true,
 })
@@ -316,7 +320,9 @@ require("autoclose").setup({
 require('lint').linters_by_ft = {
 	go = {'golangcilint',},
 	python = {'flake8',},
-	typescript = {'eslint_d'},
+	bash = {'shellcheck',},
+	shell = {'shellcheck',},
+	lua = {'luacheck',},
 }
 
 local golint = require('lint').linters.golangcilint
@@ -339,10 +345,11 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 require("conform").setup({
   formatters_by_ft = {
-    lua = { "lua-format" },
+    lua = { "stylua" },
     python = { "black", "autoflake" },
     go = { "gofumpt", "goimports" },
-    typescript = { "prettierd" },
+    bash = { "shellharden" },
+    shell = { "shellharden" },
   },
    format_on_save = {
     -- These options will be passed to conform.format()
