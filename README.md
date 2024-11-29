@@ -11,3 +11,8 @@ Install from unstable branch PPA.
 - [lazygit](https://github.com/jesseduffield/lazygit)
 
 - [tpm](https://github.com/tmux-plugins/tpm)
+
+## Roadmap
+
+- [ ] Migrate to init.lua
+- [ ] Improve plugin organization
