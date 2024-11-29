@@ -36,9 +36,6 @@ Plug 'mfussenegger/nvim-lint'
 " support for formatters
 Plug 'stevearc/conform.nvim'
 
-" auto-install required packages from Mason
-Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
-
 " completion plugin based on lsp servers
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -136,8 +133,29 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+local opts = {
+	ensure_installed = {
+		-- Go
+		'gopls',
+		'gofumpt',
+		'goimports',
+		'golangci-lint',
+		-- Lua
+		'lua-language-server',
+		'luacheck',
+		'stylua',
+		-- Python
+		'pylsp',
+		'flake8',
+		'black',
+		-- Bash
+		'bashls',
+		'shellharden',
+		'shellcheck',
+	},
+}
 -- mason and masonlspconfig plugin
-require("mason").setup()
+require("mason").setup(opts)
 require("mason-lspconfig").setup()
 
 -- Setup language servers.
@@ -268,28 +286,6 @@ require('lspconfig').gopls.setup({
     }
 })
 
-require('mason-tool-installer').setup({
-	ensure_installed = {
-		-- Go
-		'gopls',
-		'gofumpt',
-		'goimports',
-		'golangci-lint',
-		-- Lua
-		'lua-language-server',
-		'luacheck',
-		'stylua',
-		-- Python
-		'pylsp',
-		'flake8',
-		'black',
-		-- Bash
-		'bashls',
-		'shellharden',
-		'shellcheck',
-	},
-	auto_update = true,
-})
 
 -- autoclose plugin
 require("autoclose").setup({
