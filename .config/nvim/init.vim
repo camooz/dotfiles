@@ -111,6 +111,12 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<C-l>", "<C-w>l")
 
 -- keybindings for telescope
+require('telescope').setup({
+	defaults = {
+		no_ignore = true,
+
+	},
+})
 local builtin = require('telescope.builtin')
 map('n', '<leader>ff', builtin.find_files)
 map('n', '<leader>fs', builtin.current_buffer_fuzzy_find)
