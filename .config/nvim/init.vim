@@ -113,8 +113,11 @@ map("n", "<C-l>", "<C-w>l")
 -- keybindings for telescope
 require('telescope').setup({
 	defaults = {
+		-- show ignored files
 		no_ignore = true,
 
+		-- track symlinks
+		follow = true,
 	},
 })
 local builtin = require('telescope.builtin')
