@@ -112,14 +112,15 @@ map("n", "<C-l>", "<C-w>l")
 
 -- keybindings for telescope
 require('telescope').setup({
-	defaults = {
-		-- show ignored files
-		no_ignore = true,
-
-		-- track symlinks
-		follow = true,
-	},
+	pickers = {
+		find_files = {
+			no_ignore = true,
+			no_ignore_parent = true,
+			follow = true,
+		}
+	}
 })
+
 local builtin = require('telescope.builtin')
 map('n', '<leader>ff', builtin.find_files)
 map('n', '<leader>fs', builtin.current_buffer_fuzzy_find)
