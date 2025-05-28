@@ -81,6 +81,7 @@ Plug 'kdheepak/lazygit.nvim'
 
 call plug#end()
 
+set termguicolors
 colorscheme kanagawa
 
 lua << EOF
