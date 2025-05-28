@@ -322,44 +322,65 @@ require("autoclose").setup({
    },
 })
 
+-- Linter configuration
 require('lint').linters_by_ft = {
 	go = {'golangcilint',},
-	python = {'flake8',},
-	bash = {'shellcheck',},
+	python = {'ruff',},
 	shell = {'shellcheck',},
 	lua = {'luacheck',},
+	yaml = {'yamllint',},
 }
 
-local golint = require('lint').linters.golangcilint
-golint.args = {
-	'--timeout=10m', '--disable-all', '-E=misspell',
-        '-E=govet', '-E=revive', '-E=gofumpt', '-E=gosec', '-E=unparam',
-        '-E=goconst', '-E=prealloc', '-E=stylecheck', '-E=unconvert',
-        '-E=errcheck', '-E=ineffassign', '-E=unused', '-E=tparallel',
-        '-E=whitespace', '-E=staticcheck', '-E=gosimple', '-E=gocritic',
-}
+local golangcilint = require("lint.linters.golangcilint")
+golangcilint.args = (function()
+  local ok, value = pcall(vim.fn.system, { 'golangci-lint', 'version' })
+  if ok and (string.find(value, 'version v2') or string.find(value, 'version 2')) then
+    return {
+      'run',
+      '--output.json.path=stdout',
+      '--issues-exit-code=0',
+      '--show-stats=false',
+      function()
+        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':h')
+      end,
+    }
+  else
+    return {
+      'run',
+      '--out-format',
+      'json',
+      '--issues-exit-code=0',
+      '--show-stats=false',
+      '--print-issued-lines=false',
+      '--print-linter-name=false',
+      function()
+        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':h')
+      end,
+    }
+  end
+end)(),
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
-
     -- try_lint without arguments runs the linters defined in `linters_by_ft`
     -- for the current filetype
     require("lint").try_lint()
   end,
 })
 
+-- Formatter configuration
 require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
-    python = { "black", "autoflake" },
+    python = { "ruff", },
     go = { "gofumpt", "goimports" },
-    bash = { "shellharden" },
-    shell = { "shellharden" },
+    sh = { "shellharden", "shfmt" },
+    yaml = { "yamlfmt" },
   },
    format_on_save = {
     -- These options will be passed to conform.format()
     timeout_ms = 500,
-    lsp_fallback = true,
+    lsp_format = "fallback",
   },
 })
 
