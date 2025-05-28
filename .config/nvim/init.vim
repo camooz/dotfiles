@@ -4,7 +4,7 @@ set nowrap
 call plug#begin()
 
 " greeter
-Plug 'startup-nvim/startup.nvim'
+Plug 'echasnovski/mini.starter'
 
 " bar at bottom of nvim
 Plug 'itchyny/lightline.vim'
@@ -67,6 +67,7 @@ Plug 'romgrk/barbar.nvim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 Plug 'kdheepak/lazygit.nvim'
+
 
 call plug#end()
 
@@ -132,7 +133,7 @@ map('n', '<leader>ld', builtin.diagnostics)
 -- lazygit
 map('n', '<leader>gg', ':LazyGit<CR>')
 
-require('startup').setup({theme = "dashboard"})
+require('mini.starter').setup()
 
 -- treesitter minimal config
 require'nvim-treesitter.configs'.setup {
