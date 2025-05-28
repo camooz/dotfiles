@@ -156,13 +156,14 @@ local opts = {
 		'luacheck',
 		'stylua',
 		-- Python
-		'pylsp',
-		'flake8',
-		'black',
+		'ruff',
+		'pyright',
 		-- Bash
-		'bashls',
 		'shellharden',
-		'shellcheck',
+		'shfmt',
+		-- YAML
+		'yamlfmt',
+		'yamllint',
 	},
 }
 -- mason and masonlspconfig plugin
@@ -277,16 +278,13 @@ require('lspconfig')['lua_ls'].setup {
 require('lspconfig')['ts_ls'].setup {
 	capabilities = capabilities
 }
-require('lspconfig')['pylsp'].setup {
+require('lspconfig')['ruff'].setup {
+	capabilities = capabilities
+}
+require('lspconfig')['pyright'].setup {
 	capabilities = capabilities
 }
 require('lspconfig')['html'].setup {
-	capabilities = capabilities
-}
-require('lspconfig')['yamlls'].setup {
-	capabilities = capabilities
-}
-require('lspconfig')['bashls'].setup {
 	capabilities = capabilities
 }
 require('lspconfig').gopls.setup({
