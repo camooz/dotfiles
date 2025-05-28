@@ -14,6 +14,9 @@ builtin_box_drawing = true
 history = 10000
 multiplier = 3
 
+[env]
+TERM = "alacritty-direct"
+
 [colors.primary]
 background = "0x1f1f28"
 foreground = "0xdcd7ba"
