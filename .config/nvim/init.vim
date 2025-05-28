@@ -468,12 +468,27 @@ require('dap-go').setup {
 
 map("n", "<leader>db", "<CMD>DapToggleBreakpoint<CR>")
 
-map("n", "<leader>dgt", function()
+map("n", "<leader>dt", function()
 	require('dap-go').debug_test()
 end)
 
 map("n", "<leader>dgl", function()
 	require('dap-go').debug_last()
+end)
+
+-- continue until next breaking point
+map("n", "<leader>dc", function()
+	require('dap-go').debug_continue()
+end)
+
+-- go one step further on execution [d(ebugger)n(ext)]
+map("n", "<leader>dn", function()
+	require('dap-go').debug_step_over()
+end)
+
+-- go one step back on execution [d(ebugger)p(revious)]
+map("n", "<leader>dp", function()
+	require('dap-go').debug_step_back()
 end)
 
 require("dapui").setup()
