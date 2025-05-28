@@ -78,6 +78,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 
 Plug 'kdheepak/lazygit.nvim'
 
+Plug 'm4xshen/hardtime.nvim'
 
 call plug#end()
 
@@ -606,5 +607,7 @@ map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>')
 map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>')
 map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>')
 map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>')
+
+require('hardtime').setup()
 
 EOF
