@@ -123,6 +123,9 @@ map("n", "<C-j>", "<C-w>j")
 map("n", "<C-k>", "<C-w>k")
 map("n", "<C-l>", "<C-w>l")
 
+-- vertical split
+map("n", "<leader>vs", "<C-w>v")
+
 -- keybindings for telescope
 require('telescope').setup({
 	pickers = {
