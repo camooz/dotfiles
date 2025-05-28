@@ -173,6 +173,18 @@ require("mason-lspconfig").setup()
 -- Setup language servers.
 local lspconfig = require('lspconfig')
 
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  float = {
+    border = "rounded",
+    source = true,
+  },
+  severity_sort = true,
+})
+
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map('n', '<leader>vd', vim.diagnostic.open_float)
@@ -430,7 +442,7 @@ require("barbar").setup({
 		button = '',
 		-- Enables / disables diagnostic symbols
 		diagnostics = {
-			[vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ﬀ'},
+			[vim.diagnostic.severity.ERROR] = {enabled = true, icon = '!'},
 			[vim.diagnostic.severity.WARN] = {enabled = false},
 			[vim.diagnostic.severity.INFO] = {enabled = false},
 			[vim.diagnostic.severity.HINT] = {enabled = true},
