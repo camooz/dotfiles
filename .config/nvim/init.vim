@@ -83,6 +83,14 @@ Plug 'kdheepak/lazygit.nvim'
 
 Plug 'm4xshen/hardtime.nvim'
 
+Plug 'folke/trouble.nvim'
+
+Plug 'rcarriga/nvim-notify'
+
+Plug 'renerocksai/telekasten.nvim'
+
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+
 call plug#end()
 
 set termguicolors
@@ -97,7 +105,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
 
 local function map(m, k, v)
-    vim.keymap.set(m, k, v, { noremap = true, silent = true })
+	vim.keymap.set(m, k, v, { noremap = true, silent = true })
 end
 
 -- exit insert mode faster
@@ -128,6 +136,7 @@ map("n", "<C-l>", "<C-w>l")
 
 -- vertical split
 map("n", "<leader>vs", "<C-w>v")
+vim.notify = require("notify")
 
 -- keybindings for telescope
 require('telescope').setup({
@@ -201,7 +210,7 @@ vim.diagnostic.config({
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-map('n', '<leader>vd', vim.diagnostic.open_float)
+-- map('n', '<leader>vd', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
 map('n', '<leader>ad', ':lua vim.diagnostic.setqflist()<CR>')
@@ -626,5 +635,28 @@ map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>')
 map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>')
 
 require('hardtime').setup()
+
+require('trouble').setup()
+map('n', '<leader>vd', '<cmd>Trouble diagnostics toggle<cr>')
+
+require('telekasten').setup({
+  home = vim.fn.expand("~/personal/zk"), -- Put the name of your notes directory here
+})
+
+-- Launch panel if nothing is typed after <leader>z
+vim.keymap.set("n", "<leader>z", "<cmd>Telekasten panel<CR>")
+
+-- Most used functions
+vim.keymap.set("n", "<leader>zf", "<cmd>Telekasten find_notes<CR>")
+vim.keymap.set("n", "<leader>zg", "<cmd>Telekasten search_notes<CR>")
+vim.keymap.set("n", "<leader>zd", "<cmd>Telekasten goto_today<CR>")
+vim.keymap.set("n", "<leader>zz", "<cmd>Telekasten follow_link<CR>")
+vim.keymap.set("n", "<leader>zn", "<cmd>Telekasten new_note<CR>")
+vim.keymap.set("n", "<leader>zc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>zb", "<cmd>Telekasten show_backlinks<CR>")
+vim.keymap.set("n", "<leader>zI", "<cmd>Telekasten insert_img_link<CR>")
+
+-- Call insert link automatically when we start typing a link
+vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
 EOF
