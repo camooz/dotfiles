@@ -1,5 +1,8 @@
 set number
 set nowrap
+set nohlsearch
+set relativenumber
+set ruler
 
 call plug#begin()
 
