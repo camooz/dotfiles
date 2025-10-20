@@ -155,7 +155,7 @@ require('mini.starter').setup()
 
 -- treesitter minimal config
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "go", "python", "lua", "vim", "vimdoc", "query", "typescript", "yaml", "bash" },
+  ensure_installed = { "go", "python", "lua", "vim", "vimdoc", "query", "typescript", "yaml", "bash", "vala", "ron", "proto" },
 
   highlight = {
     enable = true,
@@ -186,10 +186,6 @@ local opts = {
 }
 -- mason and masonlspconfig plugin
 require("mason").setup(opts)
-require("mason-lspconfig").setup()
-
--- Setup language servers.
-local lspconfig = require('lspconfig')
 
 vim.diagnostic.config({
   virtual_text = false,
