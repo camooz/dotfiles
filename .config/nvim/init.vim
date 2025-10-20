@@ -57,7 +57,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
 " snippets for pop-ups
-Plug 'L3MON4D3/LuaSnip'
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 
 " integrate completions with snippets
 Plug 'saadparwaiz1/cmp_luasnip'
